@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#080d1b" />
+<title>THUNDER PARTY — Party Arcade</title>
+<style>
+:root{--bg:#080d1b;--panel:#111a2d;--panel2:#17233b;--line:#263654;--text:#f4f7ff;--muted:#9caac5;--cyan:#39e2ff;--blue:#6578ff;--pink:#ff5bbd;--yellow:#ffd65b;--green:#45e6a3;--red:#ff647c;--shadow:0 18px 55px rgba(0,0,0,.32)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(ellipse at 15% 0%,rgba(51,110,255,.16),transparent 36%),radial-gradient(ellipse at 90% 10%,rgba(255,65,180,.1),transparent 30%),var(--bg);color:var(--text);font-family:Inter,"Pretendard","Noto Sans KR",system-ui,-apple-system,Segoe UI,sans-serif}body{min-height:100vh}button,input{font:inherit}button{cursor:pointer;border:0;color:inherit}button:disabled{opacity:.4;cursor:not-allowed}.app{max-width:1240px;margin:0 auto;padding:22px 24px 50px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:52px}.brand{display:flex;align-items:center;gap:12px;font-weight:950;letter-spacing:.09em}.brand-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#06101e;font-size:25px;box-shadow:0 0 28px rgba(57,226,255,.28)}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.22em;margin-top:3px}.top-actions{display:flex;align-items:center;gap:10px}.pill{border:1px solid var(--line);background:rgba(17,26,45,.7);border-radius:999px;padding:8px 13px;font-size:12px;color:var(--muted)}.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--yellow);margin-right:7px}.status-dot.online{background:var(--green);box-shadow:0 0 10px rgba(69,230,163,.7)}.icon-btn{width:40px;height:40px;border:1px solid var(--line);background:var(--panel);border-radius:12px;color:var(--muted);font-size:18px}.hero{display:grid;grid-template-columns:1.08fr .92fr;gap:28px;align-items:center;margin-bottom:34px}.eyebrow{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.hero h1{font-size:clamp(40px,6.4vw,76px);line-height:.98;letter-spacing:-.055em;margin:15px 0 18px;font-weight:1000}.hero h1 span{background:linear-gradient(90deg,var(--cyan),#91a3ff 52%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:550px;color:var(--muted);font-size:16px;line-height:1.75;margin:0}.hero-art{min-height:280px;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid rgba(91,129,205,.25);border-radius:28px;background:linear-gradient(135deg,rgba(36,65,121,.5),rgba(32,21,66,.34)),repeating-linear-gradient(135deg,transparent 0 17px,rgba(255,255,255,.018) 17px 18px);box-shadow:var(--shadow)}.orb{width:190px;height:190px;border-radius:50%;display:grid;place-items:center;font-size:100px;background:radial-gradient(circle at 32% 25%,#fff 0 3%,#74efff 4% 13%,#4575ff 36%,#792dce 68%,#181d4a 100%);box-shadow:0 0 65px rgba(57,226,255,.36),inset -16px -20px 35px rgba(0,0,0,.45);transform:rotate(-12deg)}.orbit{position:absolute;border:1px solid rgba(90,211,255,.38);border-radius:50%;width:290px;height:115px;transform:rotate(-24deg)}.orbit.two{width:330px;height:150px;transform:rotate(32deg);border-color:rgba(255,91,189,.32)}.float-tag{position:absolute;padding:9px 13px;border:1px solid rgba(255,255,255,.17);background:rgba(7,13,30,.78);backdrop-filter:blur(12px);border-radius:12px;font-size:11px;font-weight:800;letter-spacing:.08em}.tag-a{top:25px;left:24px;color:var(--yellow)}.tag-b{bottom:26px;right:22px;color:var(--cyan)}.tag-c{top:40px;right:28px;color:var(--pink)}.main-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:linear-gradient(150deg,rgba(20,31,54,.96),rgba(13,22,39,.96));border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow)}.panel h2{font-size:18px;margin:0 0 7px}.sub{color:var(--muted);font-size:13px;margin:0 0 20px}.field-label{display:block;color:#c6d1e8;font-size:12px;font-weight:700;margin-bottom:8px}.input{width:100%;border:1px solid #314565;background:#0a1222;color:var(--text);padding:14px 15px;border-radius:12px;outline:none;transition:.2s}.input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(57,226,255,.12)}.field-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-top:15px}.primary,.secondary,.danger{padding:13px 17px;border-radius:12px;font-weight:850;transition:.18s}.primary{background:linear-gradient(100deg,var(--cyan),#8291ff);color:#071120;box-shadow:0 8px 24px rgba(57,160,255,.2)}.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}.secondary{background:#202e49;border:1px solid #3a5077;color:#e7efff}.secondary:hover{background:#2a3c60}.danger{background:rgba(255,100,124,.12);border:1px solid rgba(255,100,124,.32);color:#ff9aaa}.full{width:100%}.create-card{border-color:rgba(57,226,255,.32);background:linear-gradient(145deg,rgba(20,45,68,.95),rgba(14,24,44,.96))}.join-card{background:linear-gradient(145deg,rgba(32,30,65,.8),rgba(14,24,44,.96))}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:19px}.mini-card{border:1px solid var(--line);background:rgba(14,22,39,.78);border-radius:16px;padding:17px}.mini-icon{font-size:24px;margin-bottom:9px}.mini-card b{font-size:13px;display:block;margin-bottom:5px}.mini-card span{font-size:11px;line-height:1.5;color:var(--muted)}.footer-note{margin-top:20px;text-align:center;color:#6f7f9e;font-size:11px;line-height:1.6}.view{display:none}.view.active{display:block}.room-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}.room-title{display:flex;align-items:center;gap:12px}.room-title h1{font-size:26px;margin:0}.room-code{font-size:20px;letter-spacing:.2em;font-weight:950;color:var(--cyan);background:#091323;padding:10px 16px;border-radius:12px;border:1px dashed #4e7896}.lobby-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.players{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.player{display:flex;align-items:center;gap:10px;padding:12px;border-radius:13px;background:#0b1527;border:1px solid #223553;min-width:0}.avatar{width:35px;height:35px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#38dfff,#7779ff);color:#091120;font-weight:950}.player-info{min-width:0;flex:1}.player-info b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}.player-info small{color:var(--muted);font-size:10px}.host-mark{color:var(--yellow);font-size:12px}.game-choice{display:grid;gap:10px}.game-option{display:flex;align-items:center;gap:12px;text-align:left;padding:13px;background:#0b1527;border:1px solid #2a3d5e;border-radius:14px;width:100%}.game-option.selected{border-color:var(--cyan);background:rgba(39,111,151,.18);box-shadow:0 0 0 1px rgba(57,226,255,.17)}.game-option .emoji{font-size:24px}.game-option b{display:block;font-size:13px}.game-option small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.game-option .check{margin-left:auto;color:var(--cyan)}.room-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.room-actions button{flex:1}.spectator-banner{border:1px solid rgba(255,214,91,.32);background:rgba(255,214,91,.08);color:#ffe69a;padding:12px 15px;border-radius:12px;font-size:12px;margin-bottom:15px}.game-shell{max-width:900px;margin:0 auto}.game-panel{min-height:390px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px}.game-kicker{font-size:11px;font-weight:900;color:var(--cyan);letter-spacing:.2em}.game-title{font-size:clamp(28px,5vw,46px);font-weight:950;letter-spacing:-.04em;margin:12px 0}.game-desc{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 24px}.reaction-button{width:min(330px,80vw);height:145px;border-radius:24px;background:linear-gradient(140deg,#20334f,#14233c);border:2px solid #405b82;font-size:28px;font-weight:950;letter-spacing:.08em;box-shadow:inset 0 0 30px rgba(0,0,0,.25),0 15px 40px rgba(0,0,0,.22)}.reaction-button.go{background:linear-gradient(140deg,#0fdc8b,#5af5bb);color:#052518;border-color:#9affd1;box-shadow:0 0 45px rgba(69,230,163,.34)}.reaction-button.done{background:#202e49;color:#b7c4dd}.quiz-options{width:min(580px,100%);display:grid;grid-template-columns:1fr 1fr;gap:12px}.quiz-option{padding:17px 12px;background:#15233b;border:1px solid #3a5077;border-radius:13px;font-weight:800}.quiz-option:hover{border-color:var(--cyan);background:#1b3551}.quiz-option:disabled{opacity:.5}.target-grid{display:grid;grid-template-columns:repeat(5,54px);gap:8px;margin:8px auto 15px}.target-cell{width:54px;height:54px;border:1px solid #334b70;border-radius:12px;background:#0d1930;font-size:18px}.target-cell.target{background:linear-gradient(140deg,#ffcc54,#ff7f70);border-color:#ffe7a7;box-shadow:0 0 25px rgba(255,166,77,.5);color:#291306;animation:pulse .8s infinite alternate}.target-cell.hit{background:#0c674e;color:#a8ffda}.target-cell:disabled{opacity:.55}@keyframes pulse{to{transform:scale(1.05)}}.timer{font-variant-numeric:tabular-nums;font-size:18px;font-weight:900;color:var(--yellow);padding:8px 13px;border:1px solid rgba(255,214,91,.25);border-radius:999px;background:rgba(255,214,91,.08);margin-bottom:20px}.leaderboard{width:100%;max-width:650px;margin:15px auto 0;border-collapse:collapse;text-align:left}.leaderboard th,.leaderboard td{padding:12px 10px;border-bottom:1px solid #243653;font-size:13px}.leaderboard th{color:var(--muted);font-size:10px;letter-spacing:.1em}.leaderboard td:last-child,.leaderboard th:last-child{text-align:right;font-variant-numeric:tabular-nums}.rank{color:var(--yellow);font-weight:950;width:44px}.score{font-weight:950;color:var(--cyan)}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.section-head h3{margin:0;font-size:15px}.small-muted{font-size:11px;color:var(--muted)}.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#eef5ff;color:#0b1424;padding:12px 18px;border-radius:12px;font-weight:800;font-size:13px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.2s;z-index:99;max-width:calc(100% - 30px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(7px);z-index:50;align-items:center;justify-content:center;padding:18px}.modal-backdrop.open{display:flex}.modal{width:min(520px,100%);background:#121e33;border:1px solid #334a70;border-radius:20px;padding:23px;box-shadow:var(--shadow)}.modal h2{margin:0 0 8px}.modal p{color:var(--muted);font-size:12px;line-height:1.6}.modal-actions{display:flex;gap:10px;margin-top:17px}.modal-actions>*{flex:1}.hidden{display:none!important}.empty{text-align:center;color:var(--muted);padding:28px 10px;font-size:13px}.score-strip{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.score-pill{padding:8px 12px;border-radius:99px;background:#101d32;border:1px solid #2b4265;color:#dceaff;font-size:11px}.score-pill strong{color:var(--cyan)}
+@media(max-width:800px){.app{padding:16px 15px 35px}.topbar{margin-bottom:30px}.hero{grid-template-columns:1fr;margin-bottom:22px}.hero-art{min-height:230px}.orb{width:145px;height:145px;font-size:75px}.orbit{width:240px;height:100px}.main-grid,.lobby-grid{grid-template-columns:1fr}.panel{padding:20px}.mini-grid{grid-template-columns:1fr 1fr 1fr}.room-head{align-items:flex-start;flex-direction:column}.room-title{width:100%;justify-content:space-between}.players{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.brand{font-size:13px}.brand-mark{width:37px;height:37px}.pill{font-size:10px;padding:7px 9px}.hero h1{font-size:45px}.hero p{font-size:13px}.hero-art{min-height:200px}.panel{padding:17px;border-radius:18px}.main-grid{gap:12px}.mini-grid{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.field-row button{width:100%}.players{grid-template-columns:1fr}.room-code{font-size:16px}.quiz-options{grid-template-columns:1fr}.target-grid{grid-template-columns:repeat(5,48px);gap:6px}.target-cell{width:48px;height:48px}.game-panel{padding:22px 13px;min-height:360px}.room-title h1{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark">⚡</div><div>THUNDER PARTY<small>THE ULTIMATE PARTY ARCADE</small></div></div>
+    <div class="top-actions"><div class="pill"><span id="statusDot" class="status-dot"></span><span id="connectionText">서버 미연결</span></div><button class="icon-btn" id="settingsBtn" aria-label="서버 설정">⚙</button></div>
+  </header>
+
+  <main id="homeView" class="view active">
+    <section class="hero">
+      <div><div class="eyebrow">⚡ PLAY TOGETHER · WIN TOGETHER</div><h1>MAKE SOME<br><span>NOISE.</span></h1><p>친구들과 미니게임에 도전하고, 점수를 쌓고, 오늘의 파티 챔피언에 도전하세요. 가장 빠르고 정확한 플레이어는 누구?</p></div>
+      <div class="hero-art"><div class="orbit"></div><div class="orbit two"></div><div class="orb">⚡</div><div class="float-tag tag-a">REACTION RUSH</div><div class="float-tag tag-b">PARTY CHAMPION</div><div class="float-tag tag-c">LIVE ARENA</div></div>
+    </section>
+
+    <section class="main-grid">
+      <div class="panel create-card">
+        <div class="eyebrow">HOST A PARTY</div><h2 style="margin-top:10px">새로운 게임방 만들기</h2><p class="sub">방을 만들고 친구들을 초대해 게임 쇼를 시작하세요.</p>
+        <label class="field-label" for="hostNick">내 닉네임</label><input class="input" id="hostNick" maxlength="12" placeholder="예: 썬더마스터" autocomplete="nickname" />
+        <button class="primary full" style="margin-top:14px" id="createBtn">⚡ 방 만들기</button>
+      </div>
+      <div class="panel join-card">
+        <div class="eyebrow" style="color:var(--pink)">JOIN THE ARENA</div><h2 style="margin-top:10px">친구 방 참가하기</h2><p class="sub">친구에게 받은 6자리 방 코드를 입력하세요.</p>
+        <label class="field-label" for="joinNick">내 닉네임</label><input class="input" id="joinNick" maxlength="12" placeholder="닉네임 입력" autocomplete="nickname" />
+        <div class="field-row"><div><label class="field-label" for="roomCodeInput">방 코드</label><input class="input" id="roomCodeInput" maxlength="6" placeholder="ABC123" style="text-transform:uppercase;letter-spacing:.16em;font-weight:900" /></div><button class="secondary" id="joinBtn">참가하기 →</button></div>
+        <div style="border-top:1px solid var(--line);margin-top:18px;padding-top:15px"><label class="field-label" for="spectateCodeInput">관전자 입장</label><div class="field-row" style="margin-top:0"><input class="input" id="spectateCodeInput" maxlength="6" placeholder="방 코드" style="text-transform:uppercase;letter-spacing:.16em"/><button class="secondary" id="spectateBtn">중계 보기</button></div></div>
+      </div>
+    </section>
+
+    <section class="mini-grid">
+      <div class="mini-card"><div class="mini-icon">⚡</div><b>반응속도 테스트</b><span>GO 신호가 뜨는 순간, 가장 빠르게 눌러라!</span></div>
+      <div class="mini-card"><div class="mini-icon">🎯</div><b>정확도 챌린지</b><span>10개의 타깃을 빠르고 정확하게 맞혀라.</span></div>
+      <div class="mini-card"><div class="mini-icon">🧠</div><b>순발력 퀴즈</b><span>15초 안에 정답을 골라 점수를 획득하라.</span></div>
+    </section>
+    <div class="footer-note">THUNDER PARTY MVP · 실시간 멀티플레이를 이용하려면 별도 API 서버 연결이 필요합니다.<br>축제용 운영 버전에서는 방 코드 공유와 관전자 중계를 지원합니다.</div>
+  </main>
+
+  <main id="roomView" class="view">
+    <div class="room-head"><div class="room-title"><div><div class="eyebrow">PARTY LOBBY</div><h1 id="roomHeading">게임 대기실</h1></div><span class="room-code" id="roomCodeLabel">------</span></div><div class="top-actions"><button class="secondary" id="copyRoomBtn">코드 복사</button><button class="secondary" id="homeBtn">나가기</button></div></div>
+    <div id="spectatorBanner" class="spectator-banner hidden">👀 관전자 모드입니다. 플레이어들의 진행 상황과 점수판을 볼 수 있습니다.</div>
+    <div class="lobby-grid">
+      <section class="panel"><div class="section-head"><h3>참가자 <span id="playerCount">0</span></h3><span class="small-muted">접속 상태 실시간 반영</span></div><div id="playerList" class="players"></div><div class="room-actions"><button class="secondary" id="copyInviteBtn">초대 링크 복사</button></div></section>
+      <section class="panel"><div class="section-head"><h3>게임 선택</h3><span class="small-muted" id="hostOnlyText">방장이 선택</span></div><div id="gameChoices" class="game-choice"></div><div id="lobbyMessage" class="sub" style="margin:14px 0 0">참가자가 모이면 게임을 시작하세요.</div><div class="room-actions"><button class="primary" id="startBtn">게임 시작 ⚡</button><button class="secondary hidden" id="spectatorRefreshBtn">새로고침</button></div></section>
+    </div>
+    <section class="panel" style="margin-top:18px"><div class="section-head"><h3>현재 종합 랭킹</h3><span class="small-muted">라운드 누적 점수</span></div><div id="lobbyRanking"></div></section>
+  </main>
+
+  <main id="gameView" class="view">
+    <div class="room-head"><div class="room-title"><div><div class="eyebrow" id="roundLabel">ROUND 01</div><h1 id="gameHeading">반응속도 테스트</h1></div><span class="room-code" id="gameRoomCode">------</span></div><div class="top-actions"><span class="pill" id="gamePlayerCount">0 PLAYERS</span><button class="secondary" id="gameHomeBtn">대기실</button></div></div>
+    <div id="gameSpectatorBanner" class="spectator-banner hidden">👀 지금은 관전 중입니다. 직접 조작은 각 플레이어의 기기에서 진행됩니다.</div>
+    <div class="game-shell"><section class="panel game-panel" id="gameStage"></section><section class="panel" style="margin-top:18px"><div class="section-head"><h3>실시간 점수판</h3><span class="small-muted">TOTAL SCORE</span></div><div id="gameRanking"></div></section></div>
+  </main>
+
+  <main id="resultsView" class="view">
+    <div class="game-shell"><div class="eyebrow" style="text-align:center">ROUND COMPLETE</div><h1 style="text-align:center;font-size:clamp(34px,6vw,58px);margin:12px 0 8px">결과 발표 <span style="color:var(--yellow)">🏆</span></h1><p class="sub" style="text-align:center">이번 라운드의 챔피언과 점수를 확인하세요.</p><section class="panel"><div id="roundResults"></div><div class="room-actions" style="margin-top:24px"><button class="primary" id="nextRoundBtn">다음 라운드 준비</button><button class="secondary" id="resultsHomeBtn">메인 화면</button></div></section><section class="panel" style="margin-top:17px"><div class="section-head"><h3>종합 랭킹</h3><span class="small-muted">누적 점수</span></div><div id="resultsRanking"></div></section></div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="settingsModal"><div class="modal"><h2>서버 연결 설정</h2><p>Cloudflare Worker를 배포한 뒤 발급된 주소를 입력하세요. 예: https://thunder-party-api.example.workers.dev</p><label class="field-label" for="apiUrlInput">THUNDER PARTY API 주소</label><input class="input" id="apiUrlInput" placeholder="https://your-worker.workers.dev"/><div class="modal-actions"><button class="secondary" id="closeSettingsBtn">닫기</button><button class="primary" id="saveSettingsBtn">저장 및 연결</button></div><p style="margin-bottom:0">주의: 기존 THUNDER ROYALE API 주소나 데이터베이스를 재사용하지 말고, THUNDER PARTY 전용으로 새 Worker와 D1 데이터베이스를 만드세요.</p></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const GAME_META = {
+    reaction: { title: '반응속도 테스트', emoji: '⚡', desc: '신호가 초록색으로 바뀌면 즉시 버튼을 누르세요. 너무 빨리 누르면 실격입니다.' },
+    accuracy: { title: '정확도 챌린지', emoji: '🎯', desc: '빛나는 타깃이 있는 칸을 10번 정확하게 선택하세요. 속도와 정확도를 모두 평가합니다.' },
+    quiz: { title: '순발력 퀴즈', emoji: '🧠', desc: '15초 안에 정답을 선택하세요. 정답과 빠른 응답 모두 점수가 됩니다.' }
+  };
+  const state = {
+    apiBase: localStorage.getItem('tp_api') || '',
+    code: '', playerId: '', token: '', spectator: false,
+    room: null, selectedGame: 'reaction', pollTimer: null, clockTimer: null, busy: false
+  };
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function toast(message) {
+    const el = $('toast'); el.textContent = message; el.classList.add('show');
+    clearTimeout(toast._timer); toast._timer = setTimeout(() => el.classList.remove('show'), 2600);
+  }
+  function setConnection(online, label) {
+    $('statusDot').classList.toggle('online', !!online);
+    $('connectionText').textContent = label || (online ? '서버 연결됨' : '서버 미연결');
+  }
+  function apiUrl(path) { return state.apiBase.replace(/\/+$/, '') + path; }
+  async function api(path, method = 'GET', body = null, useAuth = true) {
+    if (!state.apiBase) throw new Error('먼저 서버 주소를 설정해 주세요.');
+    const headers = {};
+    if (body) headers['Content-Type'] = 'application/json';
+    if (useAuth && state.token) headers.Authorization = 'Bearer ' + state.token;
+    const url = apiUrl(path);
+    const response = await fetch(url, { method, headers, body: body ? JSON.stringify(body) : undefined, cache: 'no-store' });
+    let data;
+    try { data = await response.json(); } catch { throw new Error('서버 응답을 읽을 수 없습니다. API 주소와 배포 상태를 확인해 주세요.'); }
+    if (!response.ok || data.ok === false) throw new Error(data.error || ('요청 실패 (' + response.status + ')'));
+    return data;
+  }
+  function showView(id) {
+    ['homeView','roomView','gameView','resultsView'].forEach(v => $(v).classList.toggle('active', v === id));
+  }
+  function saveSession() {
+    if (state.code && state.playerId && state.token) {
+      localStorage.setItem('tp_session_' + state.code, JSON.stringify({ playerId: state.playerId, token: state.token }));
+    }
+  }
+  function stopPolling() {
+    clearInterval(state.pollTimer); clearInterval(state.clockTimer);
+    state.pollTimer = null; state.clockTimer = null;
+  }
+  function setRoomIdentity(code, playerId = '', token = '', spectator = false) {
+    state.code = code.toUpperCase(); state.playerId = playerId; state.token = token; state.spectator = spectator;
+    const url = new URL(location.href);
+    url.searchParams.set('room', state.code);
+    if (spectator) url.searchParams.set('spectate', '1'); else url.searchParams.delete('spectate');
+    history.replaceState({}, '', url);
+    saveSession();
+  }
+  async function createRoom() {
+    const nickname = $('hostNick').value.trim();
+    if (nickname.length < 2) return toast('닉네임을 2자 이상 입력해 주세요.');
+    try {
+      const data = await api('/api/rooms', 'POST', { nickname }, false);
+      setRoomIdentity(data.code, data.playerId, data.token, false);
+      state.selectedGame = 'reaction';
+      await refreshRoom(); startPolling();
+      toast('게임방이 생성되었습니다!');
+    } catch (e) { toast(e.message); }
+  }
+  async function joinRoom() {
+    const nickname = $('joinNick').value.trim();
+    const code = $('roomCodeInput').value.trim().toUpperCase();
+    if (nickname.length < 2) return toast('닉네임을 2자 이상 입력해 주세요.');
+    if (!/^[A-Z0-9]{6}$/.test(code)) return toast('6자리 방 코드를 입력해 주세요.');
+    try {
+      const data = await api('/api/rooms/' + code + '/join', 'POST', { nickname }, false);
+      setRoomIdentity(code, data.playerId, data.token, false);
+      await refreshRoom(); startPolling(); toast('게임방에 참가했습니다!');
+    } catch (e) { toast(e.message); }
+  }
+  async function spectateRoom(code) {
+    code = code.trim().toUpperCase();
+    if (!/^[A-Z0-9]{6}$/.test(code)) return toast('6자리 방 코드를 입력해 주세요.');
+    try {
+      setRoomIdentity(code, '', '', true);
+      await refreshRoom(); startPolling(); toast('관전자 모드로 입장했습니다.');
+    } catch (e) { setRoomIdentity('', '', '', false); toast(e.message); }
+  }
+  async function refreshRoom() {
+    if (!state.code) return;
+    const suffix = state.playerId ? '?playerId=' + encodeURIComponent(state.playerId) : '';
+    const data = await api('/api/rooms/' + state.code + suffix, 'GET', null, true);
+    state.room = data.room;
+    renderRoom();
+    setConnection(true, '서버 연결됨');
+  }
+  function startPolling() {
+    stopPolling();
+    state.pollTimer = setInterval(async () => {
+      try { await refreshRoom(); }
+      catch (e) { setConnection(false, '연결 확인 중'); }
+    }, 1000);
+    state.clockTimer = setInterval(updateClock, 150);
+  }
+  function renderPlayers(players) {
+    if (!players?.length) return '<div class="empty">아직 참가자가 없습니다.</div>';
+    return players.map((p, i) => `<div class="player"><div class="avatar">${escapeHtml((p.nickname || '?').slice(0,1))}</div><div class="player-info"><b>${escapeHtml(p.nickname)} ${p.isHost ? '<span class="host-mark">★ HOST</span>' : ''}</b><small>${p.online ? '● 접속 중' : '○ 잠시 자리 비움'} · ${Number(p.score).toLocaleString()}점</small></div></div>`).join('');
+  }
+  function rankingTable(players) {
+    const sorted = [...(players || [])].sort((a,b) => b.score-a.score);
+    if (!sorted.length) return '<div class="empty">랭킹 데이터가 없습니다.</div>';
+    return `<table class="leaderboard"><thead><tr><th>RANK</th><th>PLAYER</th><th>SCORE</th></tr></thead><tbody>${sorted.map((p,i)=>`<tr><td class="rank">${i===0?'🥇':i===1?'🥈':i===2?'🥉':String(i+1).padStart(2,'0')}</td><td>${escapeHtml(p.nickname)}</td><td class="score">${Number(p.score).toLocaleString()} P</td></tr>`).join('')}</tbody></table>`;
+  }
+  function renderRoom() {
+    const r = state.room; if (!r) return;
+    $('roomCodeLabel').textContent = r.code;
+    $('gameRoomCode').textContent = r.code;
+    $('roomHeading').textContent = state.spectator ? '게임 중계 대기실' : '게임 대기실';
+    $('spectatorBanner').classList.toggle('hidden', !state.spectator);
+    $('gameSpectatorBanner').classList.toggle('hidden', !state.spectator);
+    $('playerCount').textContent = r.players.length;
+    $('playerList').innerHTML = renderPlayers(r.players);
+    $('lobbyRanking').innerHTML = rankingTable(r.players);
+    $('gamePlayerCount').textContent = r.players.length + ' PLAYERS';
+    $('gameChoices').innerHTML = Object.entries(GAME_META).map(([id,g]) => `<button class="game-option ${state.selectedGame===id?'selected':''}" data-game="${id}" ${state.spectator || !isHost() ? 'disabled' : ''}><span class="emoji">${g.emoji}</span><span><b>${g.title}</b><small>${g.desc}</small></span><span class="check">${state.selectedGame===id?'✓':''}</span></button>`).join('');
+    document.querySelectorAll('[data-game]').forEach(btn => btn.addEventListener('click', () => { state.selectedGame = btn.dataset.game; renderRoom(); }));
+    $('startBtn').classList.toggle('hidden', state.spectator || !isHost() || r.status !== 'lobby');
+    $('startBtn').disabled = r.players.length < 1 || state.busy;
+    $('hostOnlyText').textContent = state.spectator ? '관전 전용' : isHost() ? '방장 권한' : '방장이 선택합니다';
+    $('lobbyMessage').textContent = state.spectator ? '게임이 시작되면 이 화면에서 진행 상황을 확인할 수 있습니다.' : isHost() ? '게임을 선택하고 시작 버튼을 눌러주세요.' : '방장이 게임을 시작할 때까지 기다려 주세요.';
+    $('spectatorRefreshBtn').classList.toggle('hidden', !state.spectator);
+
+    if (r.status === 'playing') { renderGame(); showView('gameView'); }
+    else if (r.status === 'results') { renderResults(); showView('resultsView'); }
+    else showView('roomView');
+  }
+  function isHost() { return !!state.room?.players?.find(p => p.id === state.playerId)?.isHost; }
+  async function startGame() {
+    if (state.busy) return; state.busy = true; $('startBtn').disabled = true;
+    try {
+      const data = await api('/api/rooms/' + state.code + '/start', 'POST', { playerId: state.playerId, gameId: state.selectedGame });
+      state.room = data.room; renderRoom();
+    } catch (e) { toast(e.message); }
+    finally { state.busy = false; }
+  }
+  async function submitAction(action) {
+    if (state.busy || state.spectator) return;
+    state.busy = true;
+    try {
+      const data = await api('/api/rooms/' + state.code + '/action', 'POST', { playerId: state.playerId, ...action });
+      state.room = data.room; renderRoom();
+    } catch (e) { toast(e.message); }
+    finally { state.busy = false; }
+  }
+  function myResult() { return state.room?.results?.find(x => x.playerId === state.playerId); }
+  function renderGame() {
+    const r = state.room; if (!r?.game) return;
+    const gameId = r.gameId; const meta = GAME_META[gameId];
+    $('roundLabel').textContent = 'ROUND ' + String(r.round).padStart(2,'0');
+    $('gameHeading').textContent = meta.title;
+    $('gameRoomCode').textContent = r.code;
+    $('gameRanking').innerHTML = rankingTable(r.players);
+    const my = myResult();
+    const spectator = state.spectator;
+    let html = `<div class="game-kicker">${meta.emoji} THUNDER PARTY · ${meta.title.toUpperCase()}</div><h2 class="game-title">${meta.title}</h2><p class="game-desc">${meta.desc}</p>`;
+    if (gameId === 'reaction') {
+      const go = Date.now() >= Number(r.game.fireAt);
+      html += `<div class="timer" data-deadline="${r.game.endsAt}">남은 시간 계산 중</div>`;
+      if (my) {
+        html += `<div class="reaction-button done">${my.detail?.falseStart ? '너무 빨랐어요!' : (my.detail?.reactionMs ?? '완료') + ' ms'}</div><p class="game-desc" style="margin-top:18px">기록이 제출되었습니다. 다른 참가자의 결과를 기다리는 중입니다.</p>`;
+      } else if (spectator) {
+        html += `<div class="reaction-button ${go?'go':''}">${go?'GO!':'WAIT...'}</div><p class="game-desc" style="margin-top:18px">플레이어들의 반응속도 대결이 진행 중입니다.</p>`;
+      } else {
+        html += `<button id="reactionTap" class="reaction-button ${go?'go':''}">${go?'지금 눌러!':'대기하세요...'}</button><p class="game-desc" style="margin-top:18px">신호가 나오기 전에 누르면 실격 처리됩니다.</p>`;
+      }
+    } else if (gameId === 'quiz') {
+      html += `<div class="timer" data-deadline="${r.game.endsAt}">15.0초</div><div style="font-size:22px;font-weight:900;margin:0 0 22px">${escapeHtml(r.game.question)}</div>`;
+      if (my) html += `<div class="score-pill">${my.detail?.correct ? '정답입니다!' : '아쉽지만 오답입니다.'} · ${my.score.toLocaleString()}점</div><p class="game-desc" style="margin-top:16px">다른 참가자의 답변을 기다리는 중입니다.</p>`;
+      else if (spectator) html += `<div class="score-pill">관전자 모드 · 정답 제출 현황 ${r.results.length}/${r.players.length}</div>`;
+      else html += `<div class="quiz-options">${r.game.options.map((v,i)=>`<button class="quiz-option" data-answer="${i}">${escapeHtml(v)}</button>`).join('')}</div>`;
+    } else if (gameId === 'accuracy') {
+      const p = r.myProgress || {progress:0,hits:0,targetCell:null};
+      html += `<div class="timer" data-deadline="${r.game.endsAt}">20.0초</div><div class="score-strip"><span class="score-pill">진행 <strong>${p.progress}/10</strong></span><span class="score-pill">명중 <strong>${p.hits}</strong></span></div>`;
+      if (my) html += `<div class="score-pill" style="margin-top:16px">도전 완료 · ${my.detail?.hits ?? 0}/10 명중 · ${my.score.toLocaleString()}점</div>`;
+      else if (spectator) html += `<p class="game-desc" style="margin-top:20px">참가자들은 각자의 화면에서 타깃을 맞히고 있습니다.</p>`;
+      else {
+        html += `<div class="target-grid">${Array.from({length:25},(_,i)=>`<button class="target-cell ${i===p.targetCell?'target':''}" data-cell="${i}" aria-label="칸 ${i+1}">${i===p.targetCell?'✦':''}</button>`).join('')}</div><p class="game-desc">빛나는 칸을 선택하세요. 틀려도 다음 타깃으로 넘어갑니다.</p>`;
+      }
+    }
+    $('gameStage').innerHTML = html;
+    const tap = $('reactionTap'); if (tap) tap.addEventListener('click', () => submitAction({ action: 'tap' }));
+    document.querySelectorAll('[data-answer]').forEach(btn => btn.addEventListener('click', () => submitAction({ answerIndex: Number(btn.dataset.answer) })));
+    document.querySelectorAll('[data-cell]').forEach(btn => btn.addEventListener('click', () => submitAction({ cell: Number(btn.dataset.cell) })));
+    updateClock();
+  }
+  function updateClock() {
+    const timer = document.querySelector('[data-deadline]');
+    if (timer) {
+      const left = Math.max(0, Number(timer.dataset.deadline) - Date.now());
+      timer.textContent = (left / 1000).toFixed(1) + '초';
+      if (left < 5000) timer.style.color = 'var(--red)';
+    }
+    const r = state.room;
+    if (r?.status === 'playing' && r.gameId === 'reaction' && $('gameStage').querySelector('#reactionTap')) {
+      const button = $('reactionTap');
+      const go = Date.now() >= Number(r.game.fireAt);
+      button.classList.toggle('go', go);
+      button.textContent = go ? '지금 눌러!' : '대기하세요...';
+    }
+  }
+  function renderResults() {
+    const r = state.room; if (!r) return;
+    const rows = r.results || [];
+    $('roundResults').innerHTML = rows.length ? `<div style="text-align:center;margin-bottom:16px"><div style="font-size:42px">🏆</div><h2 style="margin:6px 0">${escapeHtml(rows[0].nickname)} 우승!</h2><div class="small-muted">이번 라운드 1위</div></div><table class="leaderboard"><thead><tr><th>RANK</th><th>PLAYER</th><th>ROUND SCORE</th></tr></thead><tbody>${rows.map((p,i)=>`<tr><td class="rank">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</td><td>${escapeHtml(p.nickname)}${p.detail?.falseStart?' · 조기 입력':''}</td><td class="score">${Number(p.score).toLocaleString()} P</td></tr>`).join('')}</tbody></table>` : '<div class="empty">이번 라운드 결과가 없습니다.</div>';
+    $('resultsRanking').innerHTML = rankingTable(r.players);
+    $('nextRoundBtn').classList.toggle('hidden', state.spectator || !isHost());
+    $('nextRoundBtn').textContent = state.spectator || !isHost() ? '방장이 다음 라운드를 준비합니다' : '다음 라운드 준비 →';
+  }
+  async function nextRound() {
+    try { const data = await api('/api/rooms/' + state.code + '/next', 'POST', { playerId: state.playerId }); state.room = data.room; renderRoom(); }
+    catch(e) { toast(e.message); }
+  }
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); toast('복사했습니다!'); }
+    catch { toast('복사할 수 없습니다. 주소를 직접 선택해 주세요.'); }
+  }
+  async function leaveRoom() {
+    if (state.code && state.playerId && state.token) {
+      try { await api('/api/rooms/' + state.code + '/leave', 'POST', { playerId: state.playerId }); } catch {}
+    }
+    backHome();
+  }
+  function backHome() { stopPolling(); state.room = null; state.code = ''; state.playerId = ''; state.token = ''; state.spectator = false; const url = new URL(location.href); url.searchParams.delete('room'); url.searchParams.delete('spectate'); history.replaceState({}, '', url); showView('homeView'); }
+  function showSettings() { $('apiUrlInput').value = state.apiBase; $('settingsModal').classList.add('open'); }
+
+  $('createBtn').addEventListener('click', createRoom);
+  $('joinBtn').addEventListener('click', joinRoom);
+  $('spectateBtn').addEventListener('click', () => spectateRoom($('spectateCodeInput').value));
+  $('roomCodeInput').addEventListener('input', e => e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6));
+  $('spectateCodeInput').addEventListener('input', e => e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6));
+  $('startBtn').addEventListener('click', startGame);
+  $('copyRoomBtn').addEventListener('click', () => copyText(state.code));
+  $('copyInviteBtn').addEventListener('click', () => copyText(location.origin + location.pathname + '?room=' + state.code + '&spectate=1'));
+  $('homeBtn').addEventListener('click', leaveRoom); $('gameHomeBtn').addEventListener('click', leaveRoom);
+  $('spectatorRefreshBtn').addEventListener('click', refreshRoom); $('nextRoundBtn').addEventListener('click', nextRound); $('resultsHomeBtn').addEventListener('click', leaveRoom);
+  $('settingsBtn').addEventListener('click', showSettings); $('closeSettingsBtn').addEventListener('click', () => $('settingsModal').classList.remove('open'));
+  $('saveSettingsBtn').addEventListener('click', async () => {
+    const url = $('apiUrlInput').value.trim().replace(/\/+$/,'');
+    if (url && !/^https:\/\//i.test(url)) return toast('https://로 시작하는 주소를 입력해 주세요.');
+    state.apiBase = url; localStorage.setItem('tp_api', url); $('settingsModal').classList.remove('open');
+    if (!url) { setConnection(false, '서버 미연결'); return; }
+    try { const data = await fetch(url + '/health').then(r=>r.json()); if (!data.ok) throw new Error(); setConnection(true, '서버 연결됨'); toast('THUNDER PARTY 서버 연결 성공!'); }
+    catch { setConnection(false, '서버 연결 실패'); toast('연결 실패: Worker 주소와 /health 응답을 확인해 주세요.'); }
+  });
+
+  async function bootFromUrl() {
+    setConnection(false, state.apiBase ? '연결 확인 중' : '서버 미연결');
+    if (!state.apiBase) return;
+    const params = new URLSearchParams(location.search);
+    const code = params.get('room');
+    if (!code) {
+      try { const d = await fetch(apiUrl('/health')).then(r=>r.json()); if (d.ok) setConnection(true, '서버 연결됨'); }
+      catch { setConnection(false, '서버 연결 실패'); }
+      return;
+    }
+    const spectator = params.get('spectate') === '1';
+    let session = null;
+    if (!spectator) { try { session = JSON.parse(localStorage.getItem('tp_session_' + code.toUpperCase()) || 'null'); } catch {} }
+    setRoomIdentity(code, session?.playerId || '', session?.token || '', spectator || !session);
+    try { await refreshRoom(); startPolling(); }
+    catch (e) { backHome(); toast(e.message); }
+  }
+  bootFromUrl();
+})();
+</script>
+</body>
+</html>

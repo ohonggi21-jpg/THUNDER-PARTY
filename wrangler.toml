@@ -1,0 +1,13 @@
+name = "thunder-party-api"
+main = "worker.js"
+compatibility_date = "2026-11-08"
+
+# After creating a NEW D1 database, paste its database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "thunder-party-db"
+database_id = "PASTE_YOUR_NEW_D1_DATABASE_ID_HERE"
+
+[vars]
+# Optional: restrict API calls to your deployed GitHub Pages origin.
+# ALLOWED_ORIGIN = "https://YOUR-USERNAME.github.io"
